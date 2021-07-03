@@ -1,0 +1,82 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+$green: rgb(209, 239, 195);
+$white: #fff;
+
+// Mixin BOC
+
+@mixin content-container {
+    max-width: 75rem;
+}
+
+// Mixin EOC
+
+.bg-white {
+    background-color: $white;
+}
+
+.bg-green {
+    background-color: $green;
+}
+
+.main-container {
+    @apply flex flex-col;
+
+    .logo {
+        @apply flex items-center font-bold p-1 uppercase;
+        span {
+            @apply px-1 ml-1;
+        }
+    }
+
+    .site-header {
+        @apply flex flex-col;
+        box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+        position: sticky;
+
+        &__inner {
+            @apply flex flex-row items-center justify-between p-3 self-center w-full;
+            @include content-container();
+        }
+    }
+
+    .newsboard {
+        background: $green;
+        background: linear-gradient(
+            180deg,
+            rgba(209, 239, 195, 1) 0%,
+            rgba(255, 255, 255, 1) 100%
+        );
+
+        .filter-box {
+            @apply self-center flex flex-col font-semibold items-center text-green-800;
+            
+            input {
+                @apply border h-1/4 p-3 rounded w-96;
+
+                &:focus-visible {
+                    outline: none;
+                    @apply border border-green-800 rounded-md;
+                }
+            }
+        }
+
+        .news-listing {
+            @include content-container();
+            @apply flex flex-wrap m-auto justify-around;
+
+            &__card {
+                @apply flex flex-col justify-center max-w-md w-96 p-2 border shadow-lg cursor-pointer;
+                margin: 0.5rem 0.5rem 2rem 0.5rem;
+
+                h2 {
+                    &.title {
+                        @apply text-2xl leading-none font-extrabold text-gray-700 tracking-tight mb-4;
+                    }
+                }
+            }
+        }
+    }
+}

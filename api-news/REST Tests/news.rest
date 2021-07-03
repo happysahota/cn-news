@@ -1,0 +1,7 @@
+POST  http://localhost:3210/news/fetchall
+Content-Type: application/json
+
+{
+    "region":"GB",
+    "filter":"anythin"
+}

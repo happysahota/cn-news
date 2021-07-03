@@ -1,0 +1,36 @@
+<div class="newsboard h-96">
+    <header class="h-40">
+        <app-search-news (updateFilterString)="updateFilterString($event)"
+            [disabled]="lifeCycle === DataLifeCycle.Loading"></app-search-news>
+    </header>
+
+    <div [ngSwitch]="lifeCycle">
+        <div *ngSwitchCase="DataLifeCycle.Loading" class="mt-20 flex flex-col items-center">
+            <h6 class="text-2xl leading-none font-extrabold text-gray-700 tracking-tight">Loading...</h6>
+        </div>
+        <div *ngSwitchCase="DataLifeCycle.LoadingError" class="mt-20 flex flex-col items-center">
+            <h6 class="text-2xl leading-none font-extrabold text-red-700 tracking-tight">Something went wrong,
+                please retry...</h6>
+        </div>
+        <main *ngSwitchCase="DataLifeCycle.Loaded" class="news-listing">
+            <ng-template ngFor let-data [ngForOf]="(articles)">
+                <article class="news-listing__card" (click)="openUrl(data.url)">
+                    <h2 class="title">{{data.title}}</h2>
+                    <figure>
+                        <div *ngIf="data.urlToImage!=null" class="border border-l mb-3 p-0.5">
+                            <img src="{{data.urlToImage}}" alt="">
+                        </div>
+                        <blockquote>
+                            <p class="max-w-4xl text-lg  font-medium leading-none space-y-6 max-w-4xl mx-auto mb-6">
+                                {{data.description}}</p>
+                        </blockquote>
+                        <figcaption class="sm:text-xl font-medium flex flex-col items-center">
+                            <div class="text-lg">{{data.author}}</div>
+                            <div class="text-xs">{{data.publishedAt | date:'short' }}</div>
+                        </figcaption>
+                    </figure>
+                </article>
+            </ng-template>
+        </main>
+    </div>
+</div>
